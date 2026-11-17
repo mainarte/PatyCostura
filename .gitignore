@@ -1,0 +1,16 @@
+# Local configuration and credentials
+.env
+.env.*
+!.env.example
+config.local.php
+
+# Local data, exports, and logs
+*.log
+*.sql.bak
+*.dump
+*.csv
+
+# Operating system files
+Thumbs.db
+Desktop.ini
+.DS_Store

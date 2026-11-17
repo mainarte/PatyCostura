@@ -1,0 +1,53 @@
+# Paty Costuras e Reformas — site PHP/MySQL
+
+## Requisitos
+- XAMPP com Apache, PHP 8+ e MySQL/MariaDB
+- Navegador atualizado
+
+## Configuração local no XAMPP (Windows)
+O projeto deve ficar em uma pasta própria e ser acessado pelo Apache:
+
+1. Abra o XAMPP Control Panel e inicie Apache e MySQL.
+2. Acesse `http://localhost/phpmyadmin`.
+3. Importe `database.sql` pela aba **Importar**. O script cria o banco `paty_costuras`.
+4. No XAMPP padrão, `config.php` usa MySQL em `localhost`, usuário `root` e senha vazia. Se sua instalação tiver outra senha, atualize esse arquivo localmente e não publique credenciais no GitHub.
+5. Acesse `http://localhost/paty_costuras_site/`.
+
+Se estiver instalando manualmente, coloque a pasta `paty_costuras_site` em `C:\xampp\htdocs\`. Neste computador, o caminho em `htdocs` aponta para a pasta de desenvolvimento em Documentos, então não é necessário manter uma segunda cópia.
+
+## GitHub
+O repositório local está preparado nesta pasta, mas ainda não tem remoto nem commits. Para conectar um repositório GitHub vazio, substitua a URL e execute:
+
+```powershell
+git remote add origin https://github.com/USUARIO/REPOSITORIO.git
+git add .
+git commit -m "Configuração inicial do site"
+git push -u origin main
+```
+
+Se o repositório remoto já tiver arquivos ou commits, sincronize-o antes de publicar para evitar conflitos.
+Não inclua tokens, senhas nem dados de clientes no repositório. O acesso ao GitHub deve ser autorizado pelo Git Credential Manager ou por SSH; não cole tokens em arquivos do projeto.
+
+## O que está conectado ao banco
+- Tabela `servicos`: tabela de preços apresentada no site.
+- Tabela `medidas`: recebe as fichas enviadas pelo formulário.
+- Tabela `mensagens_chat`: registra as mensagens digitadas no chatbot.
+
+## Personalização
+- Altere textos e informações comerciais em `index.php`.
+- Altere cores e layout em `assets/style.css`.
+- Altere perguntas/respostas do chatbot em `api/chat.php`.
+- Altere os preços diretamente na tabela `servicos` pelo phpMyAdmin.
+- O simulador mantém um avatar ilustrativo e pode criar uma prova virtual opcional usando a API de edição de imagens da OpenAI. A imagem gerada serve somente como referência visual; não é uma medição, molde técnico nem garantia de caimento.
+- O chatbot atual responde a perguntas frequentes por regras locais; ele não usa um modelo generativo nem envia dados a um provedor de IA.
+
+## Ativar a prova virtual com IA
+1. Crie uma chave de API da OpenAI e confirme que sua conta tem acesso ao modelo de edição de imagens. A API pode cobrar por cada geração.
+2. Copie `config.local.php.example` para `config.local.php` na pasta do projeto.
+3. Cole a chave em `openai_api_key` no arquivo local. `config.local.php` está listado no `.gitignore` e não deve ser enviado ao GitHub.
+4. Reinicie o Apache no XAMPP e abra o simulador. Sem a chave, o avatar continua funcionando e o site informa que a integração precisa ser configurada.
+
+Ao escolher uma foto, ela aparece somente como prévia local. Ela e as medidas opcionais só são enviadas à OpenAI quando a pessoa marca o consentimento e solicita a geração. O site não mantém a foto nem a imagem gerada depois da solicitação; a imagem de resultado fica apenas na página aberta. A API pode processar os dados de acordo com as políticas do provedor. Informe os clientes sobre o processamento externo e consulte essas políticas. A prévia pode modificar características da roupa ou da pessoa e não substitui prova presencial nem avaliação profissional. Configure limites de gastos para a chave de API.
+
+## Importante
+Os preços incluídos no banco são apenas valores iniciais sugeridos para demonstração. Confirme e ajuste todos os valores com a proprietária antes de publicar. A ficha de medidas deve ser usada como referência inicial; medidas finais e caimento devem ser conferidos pela profissional.
